@@ -1,0 +1,88 @@
+# .NET build output
+bin/
+obj/
+
+# Rider project files
+.idea/
+*.sln.iml
+
+# VS Code settings
+.vscode/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ASP.NET Core secrets
+secrets.json
+
+# Dotnet watch files
+**/Properties/launchSettings.json
+
+# Logs
+*.log
+logs/
+
+# macOS
+.DS_Store
+
+# Rider logs and caches
+.idea/
+.idea_modules/
+.idea-workspace.xml
+
+# Environment
+.env
+*.env*
+
+# Build artifacts
+*.dll
+*.exe
+*.pdb
+*.db
+*.json~   # backup files
+*.tgz
+
+# Dependency directories
+node_modules/
+packages/
+
+# Test results
+TestResults/
+coverage/
+
+# Publish artifacts
+publish/
+*.Publish.xml
+
+# Global tools
+tools/
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# HTTP Client scratch files
+*.http
+*.rest
+
+# SQLite or other embedded DBs (optional)
+*.sqlite
+*.db
+
+# Resharper
+_ReSharper*/
+
+# Rider workspace storage
+.idea/
+
+# VS for Mac
+.vscode/
+
+# Others
+*.ncrunch*
+*.userprefs
