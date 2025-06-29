@@ -3,9 +3,6 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using PokeTrackerApi.RunTime.Database;
 using PokeTrackerApi.RunTime.Endpoints;
-using PokeTrackerApi.RunTime.Models;
-using PokeTrackerApi.RunTime.Models.Responses;
-using PokeTrackerApi.RunTime.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,14 +10,26 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+//Services
 builder.Services.Configure<JsonOptions>(options =>
 {
     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverterWithAttributeSupport(JsonNamingPolicy.CamelCase, allowIntegerValues: false));
+    options.JsonSerializerOptions.Converters.Add(
+        new JsonStringEnumConverterWithAttributeSupport(JsonNamingPolicy.CamelCase, false));
 });
 builder.Services.AddSingleton<PokemonRepository>();
 
+//Cors
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy => policy.AllowAnyMethod()
+        .AllowAnyHeader()
+        .WithOrigins("http://localhost:5173"));
+});
+
 var app = builder.Build();
+
+app.UseCors();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

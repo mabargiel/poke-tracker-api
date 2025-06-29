@@ -6,9 +6,14 @@ public static class FilterHelper
 {
     public static IQueryable<Pokemon> AppleFilter(IQueryable<Pokemon> query, Filter filter)
     {
-        if (filter.Number.HasValue)
+        if (filter.Number is not null)
         {
-            query = query.Where(p => p.Number == filter.Number);
+            if (!int.TryParse(filter.Number, out var number))
+            {
+                throw new ArgumentException("Number filter must be an integer");
+            }
+
+            query = query.Where(p => p.Number == number);
         }
 
         if (filter.Name is not null)
@@ -19,7 +24,8 @@ public static class FilterHelper
         if (filter.Generation is not null)
         {
             query = query.Where(p =>
-                p.Generation.ToString().StartsWith(filter.Generation.ToString()!, StringComparison.CurrentCultureIgnoreCase));
+                p.Generation.ToString()
+                    .Equals(filter.Generation.ToString(), StringComparison.CurrentCultureIgnoreCase));
         }
 
         if (filter.Type is not null)

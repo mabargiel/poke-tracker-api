@@ -1,6 +1,4 @@
 using System.Text.Json;
-using Microsoft.AspNetCore.Http.Json;
-using Microsoft.Extensions.Options;
 using PokeTrackerApi.RunTime.Models;
 using PokeTrackerApi.RunTime.Utils;
 
@@ -17,5 +15,8 @@ public class PokemonRepository
         _pokemon = JsonSerializer.Deserialize<List<Pokemon>>(json, JsonSettings.Default) ?? [];
     }
 
-    public List<Pokemon> GetAll() => _pokemon;
+    public List<Pokemon> GetAll()
+    {
+        return _pokemon;
+    }
 }

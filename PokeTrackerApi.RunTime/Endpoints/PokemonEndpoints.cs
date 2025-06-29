@@ -1,9 +1,9 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using PokeTrackerApi.RunTime.Database;
 using PokeTrackerApi.RunTime.Models.Responses;
 using PokeTrackerApi.RunTime.Utils;
-using Microsoft.Extensions.Options;
 
 namespace PokeTrackerApi.RunTime.Endpoints;
 
@@ -13,6 +13,7 @@ public static class PokemonEndpoints
     {
         app.MapGet("/api/pokemon", (
                 [FromServices] PokemonRepository repo,
+                [FromServices] IOptions<JsonOptions> jsonOptions,
                 [FromQuery(Name = "page_number")] int pageNumber,
                 [FromQuery(Name = "page_size")] int pageSize,
                 string? filter,
@@ -55,7 +56,7 @@ public static class PokemonEndpoints
 
                     return Results.Json(new GetPokemonCollectionResponse([.. filtered], pageNumber, pageSize,
                         totalCount,
-                        sortObject));
+                        sortObject), jsonOptions.Value.JsonSerializerOptions);
                 }
                 catch (JsonException)
                 {
@@ -73,7 +74,8 @@ public static class PokemonEndpoints
             .WithName("GetPokemonCollection");
 
         app.MapGet("/api/pokemon/{number}", (
-                    [FromServices] PokemonRepository repo, string number) =>
+                    [FromServices] PokemonRepository repo,
+                    [FromServices] IOptions<JsonOptions> jsonOptions, string number) =>
                 {
                     var pokemon = repo.GetAll();
 
@@ -86,7 +88,7 @@ public static class PokemonEndpoints
 
                     return pokemonDetails == null
                         ? Results.NotFound($"Pokemon with number {numberValue} not found")
-                        : Results.Json(pokemonDetails);
+                        : Results.Json(pokemonDetails, jsonOptions.Value.JsonSerializerOptions);
                 }
             )
             .WithName("GetPokemon");

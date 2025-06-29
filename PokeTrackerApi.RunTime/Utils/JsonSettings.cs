@@ -11,7 +11,7 @@ public static class JsonSettings
         PropertyNameCaseInsensitive = false,
         Converters =
         {
-            new JsonStringEnumConverterWithAttributeSupport(JsonNamingPolicy.CamelCase, allowIntegerValues: false)
+            new JsonStringEnumConverterWithAttributeSupport(JsonNamingPolicy.CamelCase, false)
         }
     };
 }
