@@ -21,5 +21,5 @@ This is the backend API for the Pokémon Tracker, built with ASP.NET Core Minima
    dotnet run
    ```
 
-The API will be accessible by default at `https://localhost:5001`.
+The API will be accessible by default at `http://localhost:5000`.
 ```
