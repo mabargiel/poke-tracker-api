@@ -24,7 +24,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy => policy.AllowAnyMethod()
         .AllowAnyHeader()
-        .WithOrigins("http://localhost:5173", "http://localhost:5174", "https://lively-bay-073042e10.1.azurestaticapps.net"));
+        .WithOrigins("http://localhost:5173", "http://localhost:5174", "https://poketracker-gtbcane5bvb5a8ad.polandcentral-01.azurewebsites.net/api/", "https://poketracker.mbargiel.dev"));
 });
 
 var app = builder.Build();
